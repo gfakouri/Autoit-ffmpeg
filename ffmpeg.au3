@@ -19,6 +19,7 @@ Global $x1Radio = GUICtrlCreateRadio("X 1", 64, 240, 41, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
 Global $x2Radio = GUICtrlCreateRadio("X 2", 120, 240, 41, 17)
 Global $x3Radio = GUICtrlCreateRadio("X 3", 176, 240, 41, 17)
+Global $qualityCheckBox = GUICtrlCreateCheckbox("Speed up coversion. Note this will reduce quality.", 48, 296, 305, 17)
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 
@@ -37,12 +38,18 @@ While 1
 			$fileData = GUICtrlRead($fileIinput)
 			$finalFileData = GUICtrlRead($newFileInput)
 
+			if GUICtrlRead($qualityCheckBox) = 1 Then
+
+				$quality = "-c:v libx264 -preset ultrafast "
+
+			EndIf
+
+
 			If GUICtrlRead($x1Radio) = 1 Then
 
-				$volume = ""
+				$volume = " "
 
-				Convert($volume)
-
+				Convert($volume, $quality)
 
 				;ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & " " & $finalFileData)
 				;Sleep(1000)
@@ -56,10 +63,9 @@ While 1
 
 				Else
 
-					$volume = ' -filter:a "volume=2"'
+					$volume = ' -filter:a "volume=2" '
 
-					Convert($volume)
-
+					Convert($volume, $quality)
 
 					;ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & ' -filter:a "volume=2 " ' & $finalFileData)
 					;Sleep(1000)
@@ -75,12 +81,9 @@ While 1
 
 				Else
 
-					$volume = ' -filter:a "volume=3"'
+					$volume = ' -filter:a "volume=3" '
 
-					Convert($volume)
-
-
-
+					Convert($volume, $quality)
 
 					;ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & ' -filter:a "volume=3 " ' & $finalFileData)
 					;Sleep(1000)
@@ -100,7 +103,7 @@ While 1
 
 WEnd
 
-Func Convert($volume)
+Func Convert($volume, $quality)
 
 	Run("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe", "", @SW_SHOWDEFAULT)
 	WinWaitActive("Windows PowerShell", "", 1500)
@@ -117,7 +120,7 @@ Func Convert($volume)
 	ControlSend("Windows PowerShell", "", "", "ls")
 	Sleep(1000)
 	Send("{Enter}")
-	ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & $volume & " " & $finalFileData)
+	ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & $volume & $quality & $finalFileData)
 	Sleep(1000)
 	Send("{Enter}")
 
