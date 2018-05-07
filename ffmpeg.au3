@@ -39,79 +39,103 @@ While 1
 
 			If GUICtrlRead($x1Radio) = 1 Then
 
-				Run("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe", "", @SW_SHOWDEFAULT)
+				$volume = ""
 
-				WinWaitActive("Windows PowerShell", "", 1500)
-				Sleep(1000)
-				ControlSend("Windows PowerShell", "", "", "cd\")
-				Sleep(1000)
-				Send("{Enter}")
-				ControlSend("Windows PowerShell", "", "", "ls")
-				Sleep(1000)
-				Send("{Enter}")
-				ControlSend("Windows PowerShell", "", "", "cd " & $locationData)
-				Sleep(1000)
-				Send("{Enter}")
-				ControlSend("Windows PowerShell", "", "", "ls")
-				Sleep(1000)
-				Send("{Enter}")
-				ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & " " & $finalFileData)
-				Sleep(1000)
-				Send("{Enter}")
+				Convert($volume)
+
+
+				;ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & " " & $finalFileData)
+				;Sleep(1000)
+				;Send("{Enter}")
 
 			ElseIf GUICtrlRead($x2Radio) = 1 Then
 
-				MsgBox(1, "Double Volume.", "This will double the volume.")
+				$double = MsgBox(1, "Double Volume.", "This will double the volume.")
 
-				Run("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe", "", @SW_SHOWDEFAULT)
+				if $double = 2 Then
 
-				WinWaitActive("Windows PowerShell", "", 1500)
-				Sleep(1000)
-				ControlSend("Windows PowerShell", "", "", "cd\")
-				Sleep(1000)
-				Send("{Enter}")
-				ControlSend("Windows PowerShell", "", "", "ls")
-				Sleep(1000)
-				Send("{Enter}")
-				ControlSend("Windows PowerShell", "", "", "cd " & $locationData)
-				Sleep(1000)
-				Send("{Enter}")
-				ControlSend("Windows PowerShell", "", "", "ls")
-				Sleep(1000)
-				Send("{Enter}")
-				ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & ' -filter:a "volume=2 " ' & $finalFileData)
-				Sleep(1000)
-				Send("{Enter}")
+				Else
 
-				ElseIf GUICtrlRead($x3Radio) = 1 Then
+					$volume = ' -filter:a "volume=2"'
 
-					MsgBox(1, "Double Volume.", "This will double the volume.")
+					Convert($volume)
 
-					Run("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe", "", @SW_SHOWDEFAULT)
 
-					WinWaitActive("Windows PowerShell", "", 1500)
-					Sleep(1000)
-					ControlSend("Windows PowerShell", "", "", "cd\")
-					Sleep(1000)
-					Send("{Enter}")
-					ControlSend("Windows PowerShell", "", "", "ls")
-					Sleep(1000)
-					Send("{Enter}")
-					ControlSend("Windows PowerShell", "", "", "cd " & $locationData)
-					Sleep(1000)
-					Send("{Enter}")
-					ControlSend("Windows PowerShell", "", "", "ls")
-					Sleep(1000)
-					Send("{Enter}")
-					ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & ' -filter:a "volume=3 " ' & $finalFileData)
-					Sleep(1000)
-					Send("{Enter}")
+					;ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & ' -filter:a "volume=2 " ' & $finalFileData)
+					;Sleep(1000)
+					;Send("{Enter}")
+
+				EndIf
+
+			ElseIf GUICtrlRead($x3Radio) = 1 Then
+
+				$treble = MsgBox(1, "Treble Volume.", "This will treble the volume.")
+
+				if $treble = 2 Then
+
+				Else
+
+					$volume = ' -filter:a "volume=3"'
+
+					Convert($volume)
+
+
+
+
+					;ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & ' -filter:a "volume=3 " ' & $finalFileData)
+					;Sleep(1000)
+					;Send("{Enter}")
+
+				EndIf
 
 			EndIf
 
 		Case $exitButton
 
+			WinClose("Windows PowerShell", "")
+
 			Exit
 
 	EndSwitch
+
 WEnd
+
+Func Convert($volume)
+
+	Run("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe", "", @SW_SHOWDEFAULT)
+	WinWaitActive("Windows PowerShell", "", 1500)
+	Sleep(1000)
+	ControlSend("Windows PowerShell", "", "", "cd\")
+	Sleep(1000)
+	Send("{Enter}")
+	ControlSend("Windows PowerShell", "", "", "ls")
+	Sleep(1000)
+	Send("{Enter}")
+	ControlSend("Windows PowerShell", "", "", "cd " & $locationData)
+	Sleep(1000)
+	Send("{Enter}")
+	ControlSend("Windows PowerShell", "", "", "ls")
+	Sleep(1000)
+	Send("{Enter}")
+	ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & $volume & " " & $finalFileData)
+	Sleep(1000)
+	Send("{Enter}")
+
+EndFunc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
