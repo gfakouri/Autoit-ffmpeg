@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <object type="TAForm" name="ffmpegConverter">
 	<properties>
-		<property name="Left" vt="Int16">-1584</property>
-		<property name="Top" vt="Int16">266</property>
+		<property name="Left" vt="Int16">-1434</property>
+		<property name="Top" vt="Int16">279</property>
 		<property name="Width" vt="Int16">630</property>
 		<property name="Height" vt="Int16">475</property>
 		<property name="Caption" vt="String">ffmpeg Converter</property>
@@ -228,6 +228,49 @@
 				<property name="TabOrder" vt="Int8">10</property>
 				<property name="CtrlStyle" vt="Int32">1342242819</property>
 				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAButton" name="multiButton">
+			<properties>
+				<property name="Left" vt="Int16">400</property>
+				<property name="Top" vt="Int16">256</property>
+				<property name="Width" vt="Int8">121</property>
+				<property name="Height" vt="Int8">25</property>
+				<property name="Caption" vt="String">Convert Multiple Files</property>
+				<property name="TabOrder" vt="Int8">11</property>
+				<property name="Color" vt="Ident">clBtnFace</property>
+				<property name="CtrlStyle" vt="Int32">1342373888</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set">DockWidth, DockHeight</property>
+			</properties>
+			<components/>
+		</object>
+		<object type="TALabel" name="multiLabel">
+			<properties>
+				<property name="Left" vt="Int16">336</property>
+				<property name="Top" vt="Int16">200</property>
+				<property name="Width" vt="Int16">257</property>
+				<property name="Height" vt="Int8">17</property>
+				<property name="Caption" vt="String">Convert multiple files in a folder. Input Folder location .</property>
+				<property name="TabOrder" vt="Int8">12</property>
+				<property name="HaveVariable" vt="False">False</property>
+				<property name="CtrlStyle" vt="Int32">1342308608</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set"/>
+			</properties>
+			<components/>
+		</object>
+		<object type="TAInput" name="folder">
+			<properties>
+				<property name="Left" vt="Int16">336</property>
+				<property name="Top" vt="Int16">224</property>
+				<property name="Width" vt="Int16">249</property>
+				<property name="Height" vt="Int8">21</property>
+				<property name="TabOrder" vt="Int8">13</property>
+				<property name="CtrlStyle" vt="Int32">1342374016</property>
+				<property name="CtrlExStyle" vt="Int16">512</property>
 				<property name="Resizing" vt="Set">DockHeight</property>
 			</properties>
 			<components/>
