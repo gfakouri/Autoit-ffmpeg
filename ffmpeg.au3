@@ -46,47 +46,11 @@ While 1
 			$fileData = GUICtrlRead($fileIinput)
 			$finalFileData = GUICtrlRead($newFileInput)
 
-			if GUICtrlRead($qualityCheckBox) = 1 Then
+			$quality = speed()
 
-				$quality = "-c:v libx264 -preset ultrafast "
+			$volume = IncreaseVolume()
 
-			EndIf
-
-			If GUICtrlRead($x1Radio) = 1 Then
-
-				$volume = " "
-
-				Convert($volume, $quality)
-
-			ElseIf GUICtrlRead($x2Radio) = 1 Then
-
-				$double = MsgBox(1, "Double Volume.", "This will double the volume.")
-
-				if $double = 2 Then
-
-				Else
-
-					$volume = ' -filter:a "volume=2" '
-
-					Convert($volume, $quality)
-
-				EndIf
-
-			ElseIf GUICtrlRead($x3Radio) = 1 Then
-
-				$treble = MsgBox(1, "Treble Volume.", "This will treble the volume.")
-
-				if $treble = 2 Then
-
-				Else
-
-					$volume = ' -filter:a "volume=3" '
-
-					Convert($volume, $quality)
-
-				EndIf
-
-			EndIf
+			Convert($volume, $quality)
 
 
 
@@ -95,47 +59,13 @@ While 1
 
 			$folderData = GUICtrlRead($folder)
 
-			if GUICtrlRead($qualityCheckBox) = 1 Then
+			$quality = speed()
 
-				$quality = "-c:v libx264 -preset ultrafast "
+			$volume = IncreaseVolume()
 
-			EndIf
+			ConvertMultiple($volume, $quality)
 
-			If GUICtrlRead($x1Radio) = 1 Then
 
-				$volume = " "
-
-				ConvertMultiple($volume, $quality)
-
-			ElseIf GUICtrlRead($x2Radio) = 1 Then
-
-				$double = MsgBox(1, "Double Volume.", "This will double the volume.")
-
-				if $double = 2 Then
-
-				Else
-
-					$volume = ' -filter:a "volume=2" '
-
-					ConvertMultiple($volume, $quality)
-
-				EndIf
-
-			ElseIf GUICtrlRead($x3Radio) = 1 Then
-
-				$treble = MsgBox(1, "Treble Volume.", "This will treble the volume.")
-
-				if $treble = 2 Then
-
-				Else
-
-					$volume = ' -filter:a "volume=3" '
-
-					ConvertMultiple($volume, $quality)
-
-				EndIf
-
-			EndIf
 
 ;EXIT APP AND POWERSHELL
 		Case $exitButton
@@ -191,6 +121,8 @@ Func ConvertMultiple($volume, $quality)
 	Send("{Enter}")
 	ControlSend("Windows PowerShell", "", "",  'forfiles /c "cmd /c ffmpeg -i @FILE' & $volume & $quality & '@FNAME.mp4"')
 
+
+
 		;ControlSend("Windows PowerShell", "", "",  'forfiles /c "cmd /c echo @FILE "')
 
 
@@ -200,12 +132,58 @@ Func ConvertMultiple($volume, $quality)
 EndFunc
 
 
+Func speed()
 
+	if GUICtrlRead($qualityCheckBox) = 1 Then
 
+		$quality = "-c:v libx264 -preset ultrafast "
 
+	Else
 
+		$quality = " "
 
+	EndIf
 
+	Return $quality
+
+EndFunc
+
+Func IncreaseVolume()
+
+	If GUICtrlRead($x1Radio) = 1 Then
+
+		$volume = " "
+		Return $volume
+
+	ElseIf GUICtrlRead($x2Radio) = 1 Then
+
+		$double = MsgBox(1, "Double Volume.", "This will double the volume.")
+
+		if $double = 2 Then
+
+		Else
+
+			$volume = ' -filter:a "volume=2" '
+			Return $volume
+
+		EndIf
+
+	ElseIf GUICtrlRead($x3Radio) = 1 Then
+
+		$treble = MsgBox(1, "Treble Volume.", "This will treble the volume.")
+
+		if $treble = 2 Then
+
+		Else
+
+			$volume = ' -filter:a "volume=3" '
+			Return $volume
+
+		EndIf
+
+	EndIf
+
+EndFunc
 
 
 
