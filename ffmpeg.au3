@@ -52,6 +52,8 @@ While 1
 
 			Convert($volume, $quality)
 
+			ExitPowerShell()
+
 
 
 ;CONVERT MULTIPLE FILES IN A FOLDER - SETTINGS APPLY TO ALL FILES
@@ -99,6 +101,8 @@ Func Convert($volume, $quality)
 	ControlSend("Windows PowerShell", "", "", "ffmpeg -i " & $fileData & $volume & $quality & $finalFileData)
 	Sleep(1000)
 	Send("{Enter}")
+
+
 
 EndFunc
 
@@ -163,7 +167,7 @@ Func IncreaseVolume()
 
 		Else
 
-			$volume = ' -filter:a "volume=2" '
+			$volume = ' -filter:a volume=2 '
 			Return $volume
 
 		EndIf
@@ -176,12 +180,21 @@ Func IncreaseVolume()
 
 		Else
 
-			$volume = ' -filter:a "volume=3" '
+			$volume = ' -filter:a volume=3 '
 			Return $volume
 
 		EndIf
 
 	EndIf
+
+EndFunc
+
+Func ExitPowerShell()
+
+	ProcessWaitClose("ffmpeg.exe")
+	ControlSend("Windows PowerShell", "", "", "exit")
+	Sleep(1000)
+	Send("{Enter}")
 
 EndFunc
 
