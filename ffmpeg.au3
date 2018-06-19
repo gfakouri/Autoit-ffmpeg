@@ -22,7 +22,7 @@ Global $x1Radio = GUICtrlCreateRadio("X 1", 64, 240, 41, 17)
 GUICtrlSetState(-1, $GUI_CHECKED)
 Global $x2Radio = GUICtrlCreateRadio("X 2", 120, 240, 41, 17)
 Global $x3Radio = GUICtrlCreateRadio("X 3", 176, 240, 41, 17)
-Global $qualityCheckBox = GUICtrlCreateCheckbox("Speed up coversion. Note this will reduce quality.", 48, 296, 305, 17)
+Global $qualityCheckBox = GUICtrlCreateCheckbox("Speed up conversion. Note this will reduce quality.", 48, 296, 305, 17)
 
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 
@@ -67,7 +67,7 @@ While 1
 
 			ConvertMultiple($volume, $quality)
 
-
+			ExitPowerShell()
 
 ;EXIT APP AND POWERSHELL
 		Case $exitButton
@@ -102,8 +102,6 @@ Func Convert($volume, $quality)
 	Sleep(1000)
 	Send("{Enter}")
 
-
-
 EndFunc
 
 Func ConvertMultiple($volume, $quality)
@@ -124,12 +122,6 @@ Func ConvertMultiple($volume, $quality)
 	Sleep(1000)
 	Send("{Enter}")
 	ControlSend("Windows PowerShell", "", "",  'forfiles /c "cmd /c ffmpeg -i @FILE' & $volume & $quality & '@FNAME.mp4"')
-
-
-
-		;ControlSend("Windows PowerShell", "", "",  'forfiles /c "cmd /c echo @FILE "')
-
-
 	Sleep(1000)
 	Send("{Enter}")
 
@@ -151,6 +143,8 @@ Func speed()
 	Return $quality
 
 EndFunc
+
+
 
 Func IncreaseVolume()
 
